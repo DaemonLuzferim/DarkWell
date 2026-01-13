@@ -7,106 +7,88 @@ const DEFAULT_USER = {
 };
 
 /* ===============================
-   ELEMENTOS
+   ELEMENTOS REALES DEL HTML
 ================================ */
-const authBox = document.getElementById("authBox");
-const app = document.getElementById("app");
-const activeUser = document.getElementById("activeUser");
+const authModal = document.getElementById("authModal");
+const btnAuth = document.getElementById("btnAuth");
+const btnLogout = document.getElementById("btnLogout");
 
-const tabLogin = document.getElementById("tabLogin");
-const tabRegister = document.getElementById("tabRegister");
+const tabs = document.querySelectorAll(".tab");
+const tabContents = document.querySelectorAll(".tab-content");
 
-const loginView = document.getElementById("loginView");
-const registerView = document.getElementById("registerView");
+const btnLogin = document.getElementById("btnLogin");
+const btnRegister = document.getElementById("btnRegister");
+
+const status = document.querySelector(".status");
+
+/* ===============================
+   ABRIR MODAL
+================================ */
+btnAuth.onclick = () => {
+  authModal.classList.remove("hidden");
+};
 
 /* ===============================
    TABS FUNCIONALES
 ================================ */
-tabLogin.onclick = () => {
-  tabLogin.classList.add("active");
-  tabRegister.classList.remove("active");
-  loginView.classList.remove("hidden");
-  registerView.classList.add("hidden");
-};
+tabs.forEach(tab => {
+  tab.onclick = () => {
+    tabs.forEach(t => t.classList.remove("active"));
+    tabContents.forEach(c => c.classList.remove("active"));
 
-tabRegister.onclick = () => {
-  tabRegister.classList.add("active");
-  tabLogin.classList.remove("active");
-  registerView.classList.remove("hidden");
-  loginView.classList.add("hidden");
-};
+    tab.classList.add("active");
+    document.getElementById(tab.dataset.tab).classList.add("active");
+  };
+});
 
 /* ===============================
    LOGIN
 ================================ */
-function login() {
-  const user = loginUser.value.trim();
-  const pass = loginPass.value.trim();
+btnLogin.onclick = () => {
+  const user = document.getElementById("loginUser").value.trim();
+  const pass = document.getElementById("loginPass").value.trim();
 
   if (
     user === DEFAULT_USER.username &&
     pass === DEFAULT_USER.password
   ) {
     localStorage.setItem("user", user);
-    startApp(user);
+    authModal.classList.add("hidden");
+    status.textContent = "🟢 " + user;
   } else {
     alert("Usuario o contraseña incorrectos");
   }
-}
+};
 
 /* ===============================
    REGISTER (SIMULADO)
 ================================ */
-function register() {
-  const user = regUser.value.trim();
-  const p1 = regPass.value;
-  const p2 = regPass2.value;
+btnRegister.onclick = () => {
+  const user = document.getElementById("regUser").value.trim();
+  const pass = document.getElementById("regPass").value.trim();
 
-  if (!user || !p1 || !p2) {
-    alert("Completa todos los campos");
+  if (!user || !pass) {
+    alert("Completa los campos");
     return;
   }
 
-  if (p1 !== p2) {
-    alert("Las contraseñas no coinciden");
-    return;
-  }
-
-  // Simulación (sin backend)
   localStorage.setItem("user", user);
-  startApp(user);
-}
+  authModal.classList.add("hidden");
+  status.textContent = "🟢 " + user;
+};
 
 /* ===============================
-   APP
+   LOGOUT
 ================================ */
-function startApp(user) {
-  authBox.classList.add("hidden");
-  app.classList.remove("hidden");
-  activeUser.textContent = "🟢 " + user;
-}
-
-function logout() {
+btnLogout.onclick = () => {
   localStorage.clear();
   location.reload();
-}
-
-/* ===============================
-   COMENTARIOS
-================================ */
-function addComment() {
-  const input = document.getElementById("commentInput");
-  if (!input.value.trim()) return;
-
-  const div = document.createElement("div");
-  div.className = "comment";
-  div.textContent = input.value;
-  document.getElementById("commentsList").appendChild(div);
-  input.value = "";
-}
+};
 
 /* ===============================
    AUTO LOGIN
 ================================ */
 const savedUser = localStorage.getItem("user");
-if (savedUser) startApp(savedUser);
+if (savedUser) {
+  status.textContent = "🟢 " + savedUser;
+}
