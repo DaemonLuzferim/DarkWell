@@ -1,39 +1,52 @@
-const commentsList = document.getElementById("commentsList");
-const btnComment = document.getElementById("btnComment");
-const commentContent = document.getElementById("commentContent");
-const btnLogout = document.getElementById("btnLogout");
+const authBox = document.getElementById("auth-container");
+const app = document.getElementById("app");
+const activeUser = document.getElementById("activeUser");
 
-let comments = [];
+function showRegister() {
+  document.getElementById("login-form").classList.add("hidden");
+  document.getElementById("register-form").classList.remove("hidden");
+}
 
-function renderComments() {
-  commentsList.innerHTML = "";
+function showLogin() {
+  document.getElementById("register-form").classList.add("hidden");
+  document.getElementById("login-form").classList.remove("hidden");
+}
 
-  if (comments.length === 0) {
-    commentsList.innerHTML = `<p class="empty">Aún no hay comentarios</p>`;
-    return;
+function register() {
+  const user = regUser.value.trim();
+  const pass = regPass.value;
+  const pass2 = regPass2.value;
+
+  if (!user || !pass) return alert("Completa todos los campos");
+  if (pass !== pass2) return alert("Las contraseñas no coinciden");
+
+  localStorage.setItem("user", user);
+  loginSuccess(user);
+}
+
+function login() {
+  const user = loginUser.value.trim();
+  const storedUser = localStorage.getItem("user");
+
+  if (!storedUser || storedUser !== user) {
+    return alert("Usuario no registrado");
   }
 
-  comments.forEach(c => {
-    const div = document.createElement("div");
-    div.className = "comment";
-    div.innerHTML = `<strong>Usuario</strong><p>${c}</p>`;
-    commentsList.appendChild(div);
-  });
+  loginSuccess(user);
 }
 
-btnComment.onclick = () => {
-  const text = commentContent.value.trim();
-  if (!text) return;
-
-  comments.push(text);
-  commentContent.value = "";
-  renderComments();
-};
-
-if (btnLogout) {
-  btnLogout.onclick = () => {
-    window.location.href = "index.html";
-  };
+function loginSuccess(user) {
+  authBox.classList.add("hidden");
+  app.classList.remove("hidden");
+  activeUser.textContent = "Activo: " + user;
 }
 
-renderComments();
+function logout() {
+  location.reload();
+}
+
+/* AUTO LOGIN */
+const savedUser = localStorage.getItem("user");
+if (savedUser) {
+  loginSuccess(savedUser);
+}
