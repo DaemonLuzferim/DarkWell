@@ -116,3 +116,56 @@ body {
   border: 1px solid #222;
   margin-top: 8px;
 }
+/* ===============================
+   TABS LOGIN FIX
+================================ */
+.tabs {
+  display: flex;
+  gap: 15px;
+}
+
+.tabs button {
+  opacity: 0.6;
+}
+
+.tabs button.active {
+  opacity: 1;
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 180px 1fr 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-box input,
+  .auth-box button {
+    width: 90%;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
