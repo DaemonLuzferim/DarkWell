@@ -1,89 +1,123 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>DarkWall</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link rel="stylesheet" href="css/styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- LOGIN / REGISTER -->
-  <div id="auth-container" class="center-box">
-    <h1>DarkWall</h1>
-    <p class="subtitle">Tu muro. Tu historia.</p>
+<!-- ========== LOGIN / REGISTER ========= -->
+<div id="authBox" class="auth-box">
+  <h1>DarkWall</h1>
+  <p class="subtitle">Tu muro. Tu historia.</p>
 
-    <!-- LOGIN -->
-    <div id="login-form">
-      <input type="text" id="loginUser" placeholder="Usuario" />
-      <input type="password" id="loginPass" placeholder="Contraseña" />
-      <button onclick="login()">Ingresar</button>
-      <p class="link" onclick="showRegister()">¿No tienes cuenta? Regístrate</p>
-    </div>
-
-    <!-- REGISTER -->
-    <div id="register-form" class="hidden">
-      <input type="text" id="regUser" placeholder="Usuario" />
-      <input type="password" id="regPass" placeholder="Contraseña" />
-      <input type="password" id="regPass2" placeholder="Confirmar contraseña" />
-      <button onclick="register()">Registrarse</button>
-      <p class="link" onclick="showLogin()">Ya tengo cuenta</p>
-    </div>
+  <div class="tabs">
+    <button id="tabLogin" class="active">Iniciar sesión</button>
+    <button id="tabRegister">Registrarse</button>
   </div>
 
-  <!-- PERFIL / PÁGINA PRINCIPAL -->
-  <div id="app" class="hidden">
-
-    <header>
-      <span id="activeUser"></span>
-      <button onclick="logout()">Cerrar sesión</button>
-    </header>
-
-    <main class="layout">
-
-      <!-- IZQUIERDA -->
-      <aside class="albums">
-        <h3>Álbumes</h3>
-        <ul>
-          <li>Año 1</li><li>Año 2</li><li>Año 3</li>
-          <li>Año 4</li><li>Año 5</li><li>Año 6</li>
-          <li>Año 7</li><li>Año 8</li><li>Año 9</li>
-          <li>Año 10</li><li>Año 11</li><li>Año 12</li>
-          <li>Año 13</li><li>Año 14</li><li>Año 15</li>
-          <li>Año 16</li><li>Año 17</li><li>Año 18</li>
-        </ul>
-      </aside>
-
-      <!-- CENTRO -->
-      <section class="photos">
-        <h3>Fotos</h3>
-        <div class="photo-grid">
-          <div class="photo"></div>
-          <div class="photo"></div>
-          <div class="photo"></div>
-          <div class="photo"></div>
-          <div class="photo"></div>
-        </div>
-
-        <!-- COMENTARIOS AL FINAL -->
-        <div class="comments">
-          <h3>Comentarios</h3>
-          <textarea placeholder="Escribe lo que quieras..."></textarea>
-          <button>Publicar</button>
-        </div>
-      </section>
-
-      <!-- DERECHA -->
-      <aside class="photos-right">
-        <h3>Extras</h3>
-        <div class="photo"></div>
-        <div class="photo"></div>
-      </aside>
-
-    </main>
+  <!-- LOGIN -->
+  <div id="loginView" class="view">
+    <input id="loginUser" placeholder="Usuario">
+    <input id="loginPass" type="password" placeholder="Contraseña">
+    <button type="button" onclick="login()">Ingresar</button>
   </div>
 
-  <script src="js/app.js"></script>
+  <!-- REGISTER -->
+  <div id="registerView" class="view hidden">
+    <input id="regUser" placeholder="Usuario">
+    <input id="regPass" type="password" placeholder="Contraseña">
+    <input id="regPass2" type="password" placeholder="Confirmar contraseña">
+    <button type="button" onclick="register()">Registrarse</button>
+  </div>
+</div>
+
+<!-- ========== APP ========= -->
+<div id="app" class="hidden">
+
+<header class="navbar">
+  <h1 class="logo">DarkWall</h1>
+  <div class="nav-actions">
+    <span id="activeUser" class="status online">🟢 Activo</span>
+    <button onclick="logout()">Cerrar sesión</button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR IZQUIERDO -->
+  <aside class="sidebar">
+    <h2>Álbumes</h2>
+    <div class="albums">
+      <button class="album">Año 1</button>
+      <button class="album">Año 2</button>
+      <button class="album">Año 3</button>
+      <button class="album">Año 4</button>
+      <button class="album">Año 5</button>
+      <button class="album">Año 6</button>
+      <button class="album">Año 7</button>
+      <button class="album">Año 8</button>
+      <button class="album">Año 9</button>
+      <button class="album">Año 10</button>
+      <button class="album">Año 11</button>
+      <button class="album">Año 12</button>
+      <button class="album">Año 13</button>
+      <button class="album">Año 14</button>
+      <button class="album">Año 15</button>
+      <button class="album">Año 16</button>
+      <button class="album">Año 17</button>
+      <button class="album">Año 18</button>
+    </div>
+
+    <div class="side-gallery">
+      <h3>Fotos</h3>
+      <div class="side-grid">
+        <div class="placeholder">+</div>
+        <div class="placeholder">+</div>
+        <div class="placeholder">+</div>
+        <div class="placeholder">+</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO -->
+  <main class="content">
+    <h2>Galería Principal</h2>
+
+    <div class="gallery-grid">
+      <div class="placeholder">+</div>
+      <div class="placeholder">+</div>
+      <div class="placeholder">+</div>
+      <div class="placeholder">+</div>
+      <div class="placeholder">+</div>
+    </div>
+
+    <hr class="divider">
+
+    <section class="comments">
+      <h2>Notas / Comentarios</h2>
+      <textarea id="commentInput" placeholder="Escribe lo que quieras..."></textarea>
+      <button onclick="addComment()">Publicar</button>
+      <div id="commentsList"></div>
+    </section>
+  </main>
+
+  <!-- SIDEBAR DERECHO -->
+  <aside class="sidebar">
+    <h2>Fotos</h2>
+    <div class="side-grid">
+      <div class="placeholder">+</div>
+      <div class="placeholder">+</div>
+      <div class="placeholder">+</div>
+      <div class="placeholder">+</div>
+    </div>
+  </aside>
+
+</div>
+</div>
+
+<script src="app.js"></script>
 </body>
-</html>
+  </html>
