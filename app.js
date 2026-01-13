@@ -1,52 +1,112 @@
-const authBox = document.getElementById("auth-container");
+/* ===============================
+   USUARIO POR DEFECTO
+================================ */
+const DEFAULT_USER = {
+  username: "admin",
+  password: "1234"
+};
+
+/* ===============================
+   ELEMENTOS
+================================ */
+const authBox = document.getElementById("authBox");
 const app = document.getElementById("app");
 const activeUser = document.getElementById("activeUser");
 
-function showRegister() {
-  document.getElementById("login-form").classList.add("hidden");
-  document.getElementById("register-form").classList.remove("hidden");
-}
+const tabLogin = document.getElementById("tabLogin");
+const tabRegister = document.getElementById("tabRegister");
 
-function showLogin() {
-  document.getElementById("register-form").classList.add("hidden");
-  document.getElementById("login-form").classList.remove("hidden");
-}
+const loginView = document.getElementById("loginView");
+const registerView = document.getElementById("registerView");
 
-function register() {
-  const user = regUser.value.trim();
-  const pass = regPass.value;
-  const pass2 = regPass2.value;
+/* ===============================
+   TABS FUNCIONALES
+================================ */
+tabLogin.onclick = () => {
+  tabLogin.classList.add("active");
+  tabRegister.classList.remove("active");
+  loginView.classList.remove("hidden");
+  registerView.classList.add("hidden");
+};
 
-  if (!user || !pass) return alert("Completa todos los campos");
-  if (pass !== pass2) return alert("Las contraseñas no coinciden");
+tabRegister.onclick = () => {
+  tabRegister.classList.add("active");
+  tabLogin.classList.remove("active");
+  registerView.classList.remove("hidden");
+  loginView.classList.add("hidden");
+};
 
-  localStorage.setItem("user", user);
-  loginSuccess(user);
-}
-
+/* ===============================
+   LOGIN
+================================ */
 function login() {
   const user = loginUser.value.trim();
-  const storedUser = localStorage.getItem("user");
+  const pass = loginPass.value.trim();
 
-  if (!storedUser || storedUser !== user) {
-    return alert("Usuario no registrado");
+  if (
+    user === DEFAULT_USER.username &&
+    pass === DEFAULT_USER.password
+  ) {
+    localStorage.setItem("user", user);
+    startApp(user);
+  } else {
+    alert("Usuario o contraseña incorrectos");
   }
-
-  loginSuccess(user);
 }
 
-function loginSuccess(user) {
+/* ===============================
+   REGISTER (SIMULADO)
+================================ */
+function register() {
+  const user = regUser.value.trim();
+  const p1 = regPass.value;
+  const p2 = regPass2.value;
+
+  if (!user || !p1 || !p2) {
+    alert("Completa todos los campos");
+    return;
+  }
+
+  if (p1 !== p2) {
+    alert("Las contraseñas no coinciden");
+    return;
+  }
+
+  // Simulación (sin backend)
+  localStorage.setItem("user", user);
+  startApp(user);
+}
+
+/* ===============================
+   APP
+================================ */
+function startApp(user) {
   authBox.classList.add("hidden");
   app.classList.remove("hidden");
-  activeUser.textContent = "Activo: " + user;
+  activeUser.textContent = "🟢 " + user;
 }
 
 function logout() {
+  localStorage.clear();
   location.reload();
 }
 
-/* AUTO LOGIN */
-const savedUser = localStorage.getItem("user");
-if (savedUser) {
-  loginSuccess(savedUser);
+/* ===============================
+   COMENTARIOS
+================================ */
+function addComment() {
+  const input = document.getElementById("commentInput");
+  if (!input.value.trim()) return;
+
+  const div = document.createElement("div");
+  div.className = "comment";
+  div.textContent = input.value;
+  document.getElementById("commentsList").appendChild(div);
+  input.value = "";
 }
+
+/* ===============================
+   AUTO LOGIN
+================================ */
+const savedUser = localStorage.getItem("user");
+if (savedUser) startApp(savedUser);
