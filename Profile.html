@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>DarkWall | Perfil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="navbar">
+  <h1 class="logo">DarkWall</h1>
+
+  <div class="nav-actions">
+    <span class="status online">🟢 Conectado</span>
+    <button id="btnLogout">Cerrar sesión</button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR IZQUIERDO -->
+  <aside class="sidebar">
+    <h2>Álbumes</h2>
+    <div class="albums">
+      <button class="album">Año 1</button>
+      <button class="album">Año 2</button>
+      <button class="album">Año 3</button>
+      <button class="album">Año 4</button>
+      <button class="album">Año 5</button>
+    </div>
+
+    <div class="side-gallery">
+      <h3>Fotos</h3>
+      <div class="side-grid">
+        <img src="assets/img/IMG_1.jpg">
+        <img src="assets/img/IMG_2.jpg">
+        <img src="assets/img/IMG_3.jpg">
+        <img src="assets/img/IMG_4.jpg">
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO -->
+  <main class="content">
+
+    <section class="gallery">
+      <h2>Galería Principal</h2>
+      <div class="gallery-grid">
+        <div class="photo"><img src="assets/img/IMG_1.jpg"></div>
+        <div class="photo"><img src="assets/img/IMG_2.jpg"></div>
+        <div class="photo"><img src="assets/img/IMG_3.jpg"></div>
+        <div class="photo"><img src="assets/img/IMG_4.jpg"></div>
+        <div class="photo"><img src="assets/img/IMG_5.jpg"></div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- COMENTARIOS -->
+    <section class="comments">
+      <h2>Notas / Comentarios</h2>
+      <textarea id="commentContent" placeholder="Escribe lo que quieras..."></textarea>
+      <button id="btnComment">Publicar</button>
+      <div id="commentsList"></div>
+    </section>
+
+  </main>
+
+  <!-- SIDEBAR DERECHO -->
+  <aside class="sidebar right">
+    <h2>Fotos</h2>
+    <div class="side-grid">
+      <img src="assets/img/IMG_6.jpg">
+      <img src="assets/img/IMG_7.jpg">
+      <img src="assets/img/IMG_8.jpg">
+      <img src="assets/img/IMG_9.jpg">
+    </div>
+  </aside>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
